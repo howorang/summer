@@ -1,7 +1,8 @@
 package pl.summer.model.entry;
 
 import static org.junit.Assert.*;
-import com.google.common.collect.Sets;
+
+import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -22,8 +23,8 @@ public class HashTagParserTests {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                { "to jest testowy #hashtag we wpisie a to #drugi", Sets.newHashSet("hashtag", "drugi") },
-                { "To ma sens ( ͡° ͜ʖ ͡°) #heheszki #lenistwo", Sets.newHashSet("heheszki", "lenistwo")}
+                { "to jest testowy #hashtag we wpisie a to #drugi", Sets.newLinkedHashSet("hashtag", "drugi") },
+                { "To ma sens ( ͡° ͜ʖ ͡°) #heheszki #lenistwo", Sets.newLinkedHashSet("heheszki", "lenistwo")}
         });
     }
 
