@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Summer Platform</title>
-
+    <title>Title</title>
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
@@ -16,24 +15,6 @@
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header">...</div>
-
-    <div th:each="entry : ${entries}" class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title pull-left">
-                <b>Nick</b>
-                timestamp
-            </div>
-            <div class="panel-title pull-right">
-                <button type="button" class="text-center btn btn-default btn-xs">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="panel-body">
-            Panel content
-        </div>
-    </div>
 
 </div>
 </body>
