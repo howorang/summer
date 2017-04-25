@@ -11,6 +11,7 @@ import pl.summer.consts.Privilege;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.util.Set;
 
@@ -30,6 +31,6 @@ public class RoleEntity extends BaseEntity {
 
     @Singular
     @ElementCollection
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Set<Privilege> privileges;
 }
