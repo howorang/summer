@@ -1,15 +1,23 @@
 package pl.summer.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.summer.model.entity.RoleEntity;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.repository.UserRepository;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by howor on 18.04.2017.
@@ -22,6 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity;
 
@@ -34,7 +43,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return User
                 .withUsername(username)
                 .password(userEntity.getPassword())
-                .authorities(Collections.emptyList())
+                .authorities(getGrantedAuthorities(userEntity))
                 .build();
+    }
+
+    private static  List<GrantedAuthority> getGrantedAuthorities(UserEntity user) {
+        return user.getRoles().stream()
+                .map(RoleEntity::getPrivileges)
+                .flatMap(Collection::stream)
+                .distinct()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }

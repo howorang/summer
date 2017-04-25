@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
@@ -32,4 +34,8 @@ public class UserEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "author")
     private List<EntryEntity> entries;
+
+    @Singular
+    @OneToMany
+    private List<RoleEntity> roles;
 }
