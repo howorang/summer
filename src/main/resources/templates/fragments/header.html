@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="/index">Summer</a>
         </div>
         <ul class="nav navbar-nav">
-
+            <li sec:authorize="hasAuthority('ADD_POSTS')"><a th:href="@{/addEntry}">Dodaj wpis</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a th:href="@{/profile}">Profil</a></li>
