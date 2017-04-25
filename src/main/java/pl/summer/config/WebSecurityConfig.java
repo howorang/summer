@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.summer.consts.Privilege;
 
 import javax.sql.DataSource;
 
@@ -38,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/jquery/**").permitAll()
                 .antMatchers("/css/**", "/login").permitAll()
                 .antMatchers("/css/**", "/resetPassword").permitAll()
+                .antMatchers("/entry/add").hasAuthority(Privilege.ADD_ENTRY.name())
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()

@@ -7,9 +7,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Singular;
+import pl.summer.consts.Privilege;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import java.util.Set;
 
 /**
@@ -28,5 +30,6 @@ public class RoleEntity extends BaseEntity {
 
     @Singular
     @ElementCollection
-    private Set<String> privileges;
+    @Enumerated
+    private Set<Privilege> privileges;
 }

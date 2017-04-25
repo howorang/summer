@@ -52,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(RoleEntity::getPrivileges)
                 .flatMap(Collection::stream)
                 .distinct()
-                .map(SimpleGrantedAuthority::new)
+                .map(p -> new SimpleGrantedAuthority(p.name()))
                 .collect(Collectors.toList());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import pl.summer.consts.Privilege;
 import pl.summer.model.entity.RoleEntity;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.repository.RoleRepository;
@@ -49,16 +50,16 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
         RoleEntity userRole = RoleEntity.builder()
                 .roleName("ROLE_USER")
-                .privilege("ADD_POSTS")
-                .privilege("DELETE_OWN_POSTS")
+                .privilege(Privilege.ADD_ENTRY)
+                .privilege(Privilege.DELETE_OWN_POSTS)
                 .build();
 
         RoleEntity adminRole = RoleEntity.builder()
                 .roleName("ROLE_USER")
-                .privilege("ADD_POSTS")
-                .privilege("DELETE_OWN_POSTS")
-                .privilege("DELETE_ALL_POSTS")
-                .privilege("ADMIN_PANEL")
+                .privilege(Privilege.ADD_ENTRY)
+                .privilege(Privilege.DELETE_OWN_POSTS)
+                .privilege(Privilege.DELETE_ALL_POSTS)
+                .privilege(Privilege.ADMIN_PANEL)
                 .build();
 
         roleRepository.save(userRole);
