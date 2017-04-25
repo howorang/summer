@@ -17,23 +17,15 @@
 <div class="container">
     <div th:replace="fragments/header :: header">...</div>
 
-    <div th:each="entry : ${entries}" class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title pull-left" th:inline="text">
-                <b th:text="${entry.author.username}"></b>
-                [[${entry.timeStamp}]]
+    <form th:object="${entry}" th:action="@{/entry/add}" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">Dodaj wpis</div>
+            <div class="panel-body"><textarea name="textarea" th:field="*{content}" style="width:250px;height:150px;"></textarea>
             </div>
-            <div class="panel-title pull-right">
-                <button type="button" class="text-center btn btn-default btn-xs">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-            </div>
-            <div class="clearfix"></div>
         </div>
-        <div class="panel-body" th:text="${entry.content}">
-            Panel content
-        </div>
-    </div>
+        <button type="submit" class="btn btn-default">Dodaj</button>
+    </form>
+
 
 </div>
 </body>

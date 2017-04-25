@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class EntryEntity extends BaseEntity {
 
     private String content;
@@ -31,5 +33,7 @@ public class EntryEntity extends BaseEntity {
     private Set<String> hashTags;
 
     private int upvotes;
+
+    private Date timeStamp;
 
 }

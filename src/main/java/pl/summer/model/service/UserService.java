@@ -1,6 +1,8 @@
 package pl.summer.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.summer.model.dto.UserRegistrationDto;
@@ -8,6 +10,7 @@ import pl.summer.model.entity.UserDetailsEntity;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 
 /**
@@ -23,6 +26,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public void registerNewUser(UserRegistrationDto userDto) {
         UserDetailsEntity userDetails = new UserDetailsEntity();
         UserEntity newUser = UserEntity.builder()
@@ -33,5 +37,12 @@ public class UserService {
                 .build();
 
         userRepository.save(newUser);
+    }
+
+    @Transactional
+    public UserEntity getCurrentlyLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return userRepository.findByUsername(username);
     }
 }

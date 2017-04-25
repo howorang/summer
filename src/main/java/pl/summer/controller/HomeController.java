@@ -22,8 +22,8 @@ public class HomeController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(Model model) {
-        List<EntryEntity> entities = entryService.getAllEntries();
-        model.addAttribute(entities);
+        List<EntryEntity> entries = entryService.getAllEntries();
+        model.addAttribute("entries", entries);
         return "home";
     }
 }
