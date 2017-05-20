@@ -35,6 +35,34 @@
         </div>
     </div>
 
+    <div th:if="${not #lists.isEmpty(entries)}">
+        <div class="table-pagination">
+            <ul class="pagination">
+                <li th:class="${page.number eq 0} ? 'disabled' : ''">
+                    <a th:if="${not page.isFirst()}"
+                       th:href="@{''(page=${page.number-1})}">Previous</a>
+                    <a th:if="${page.isFirst()}" href="javascript:void(0);">Previous</a>
+                </li>
+
+                <li th:each="pageNo : ${#numbers.sequence(0, page.totalPages - 1)}"
+                    th:class="${page.number eq pageNo}? 'active' : ''">
+                    <a th:if="${page.number  eq pageNo}" href="javascript:void(0);">
+                        <span th:text="${pageNo + 1}"></span>
+                    </a>
+                    <a th:if="${not (page.number  eq pageNo)}"
+                       th:href="@{''(page=${pageNo})}">
+                        <span th:text="${pageNo + 1}"></span>
+                    </a>
+
+                </li>
+                <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
+                    <a th:if="${not page.isLast()}"
+                       th:href="@{''(page=${page.number+1})}">Next</a>
+                    <a th:if="${page.isLast()}" href="javascript:void(0);">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>
