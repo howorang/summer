@@ -40,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/login").permitAll()
                 .antMatchers("/css/**", "/resetPassword").permitAll()
                 .antMatchers("/entry/add").hasAuthority(Privilege.ADD_ENTRY.name())
+                .antMatchers("/admin").hasAuthority(Privilege.ADMIN_PANEL.name())
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()

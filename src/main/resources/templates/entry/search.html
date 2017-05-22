@@ -17,23 +17,36 @@
 <div class="container">
     <div th:replace="fragments/header :: header">...</div>
 
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <form method="post" th:action="@{''}" th:object="${search_bean}">
+                    <input type="text" class="form-control" th:field="*{queryString}"/>
+                    <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Go!</button>
+      </span>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div th:each="entry : ${entries}" class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title pull-left" th:inline="text">
-                    <b th:text="${entry.author.username}"></b>
-                    [[${entry.timeStamp}]]
-                </div>
-                <div class="panel-title pull-right">
-                    <a th:href="@{/entry/remove(entry_id=${entry.id})}" sec:authorize="hasAuthority('DELETE_ALL_POSTS')"
-                            class="text-center btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
+        <div class="panel-heading">
+            <div class="panel-title pull-left" th:inline="text">
+                <b th:text="${entry.author.username}"></b>
+                [[${entry.timeStamp}]]
             </div>
-            <div class="panel-body" th:text="${entry.content}">
-                Panel content
+            <div class="panel-title pull-right">
+                <a th:href="@{/entry/remove(entry_id=${entry.id})}" sec:authorize="hasAuthority('DELETE_ALL_POSTS')"
+                   class="text-center btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
             </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body" th:text="${entry.content}">
+            Panel content
+        </div>
     </div>
 
     <div th:if="${not #lists.isEmpty(entries)}">
@@ -41,7 +54,7 @@
             <ul class="pagination">
                 <li th:class="${page.number eq 0} ? 'disabled' : ''">
                     <a th:if="${not page.isFirst()}"
-                       th:href="@{''(page=${page.number-1})}">Previous</a>
+                       th:href="@{''(page=${page.number-1}, query=${current_query})}">Previous</a>
                     <a th:if="${page.isFirst()}" href="javascript:void(0);">Previous</a>
                 </li>
 
@@ -51,14 +64,14 @@
                         <span th:text="${pageNo + 1}"></span>
                     </a>
                     <a th:if="${not (page.number  eq pageNo)}"
-                       th:href="@{''(page=${pageNo})}">
+                       th:href="@{''(page=${pageNo}, query=${current_query})}">
                         <span th:text="${pageNo + 1}"></span>
                     </a>
 
                 </li>
                 <li th:class="${page.number + 1 ge page.totalPages} ? 'disabled' : ''">
                     <a th:if="${not page.isLast()}"
-                       th:href="@{''(page=${page.number+1})}">Next</a>
+                       th:href="@{''(page=${page.number+1}, query=${current_query})}">Next</a>
                     <a th:if="${page.isLast()}" href="javascript:void(0);">Next</a>
                 </li>
             </ul>

@@ -22,6 +22,7 @@ import java.util.Set;
  */
 
 @Service
+@Transactional
 public class EntryService {
 
     private static final int DEFAULT_PAGE_SIZE = 1;
@@ -31,7 +32,6 @@ public class EntryService {
     @Autowired
     private UserService userService;
 
-    @Transactional
     public void addEntry(EntryDto entryDto) {
         Set<String> hashTags = HashTagParser.getHashTags(entryDto.getContent());
         EntryEntity entry = EntryEntity.builder()
@@ -44,17 +44,26 @@ public class EntryService {
         entryRepository.save(entry);
     }
 
-    @Transactional
     public Page<EntryEntity> getEntries(int pageNumber) {
         PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
         return entryRepository.findAll(pageRequest);
     }
 
-    @Transactional
     public Page<EntryEntity> getEntriesWithHashTag(String hashTag, int pageNumber) {
         PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
         QEntryEntity qEntryEntity = QEntryEntity.entryEntity;
         BooleanExpression query = qEntryEntity.hashTags.contains(hashTag);
         return entryRepository.findAll(query, pageRequest);
+    }
+
+    public void removeEntry(long entryId) {
+        entryRepository.delete(entryId);
+    }
+
+    public Page<EntryEntity> getAllEntriesContaining(String query, int pageNumber) {
+        QEntryEntity qEntryEntity = QEntryEntity.entryEntity;
+        BooleanExpression queryExp = qEntryEntity.content.contains(query).or(qEntryEntity.author.username.contains(query));
+        PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
+        return entryRepository.findAll(queryExp, pageRequest);
     }
 }

@@ -25,13 +25,22 @@
         <ul class="nav navbar-nav">
             <li sec:authorize="hasAuthority('ADD_ENTRY')"><a th:href="@{/entry/add}">Dodaj wpis</a></li>
         </ul>
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/entry/search}">Szukaj</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/profile}">Profil</a></li>
+            <li><a sec:authorize="isAuthenticated()"
+                   th:href="@{/user/__${#authentication.getPrincipal().getUsername()}__}">Profil</a></li>
 
-                <li sec:authorize="!isAuthenticated()"><a href="/login" th:href="@{#}" onclick="$('#logoutForm').submit();">Zaloguj</a></li>
+            <li sec:authorize="!isAuthenticated()"><a href="/register">Zarejestruj</a> </li>
 
-                <li sec:authorize="isAuthenticated()"><a href="/logout" th:href="@{#}" onclick="$('#logoutForm').submit();">Wyloguj</a></li>
-                <form style="visibility: hidden" id="logoutForm" method="post" action="#" th:action="@{/logout}"></form>
+            <li sec:authorize="!isAuthenticated()"><a href="/login" th:href="@{#}" onclick="$('#logoutForm').submit();">Zaloguj</a>
+
+            </li>
+
+            <li sec:authorize="isAuthenticated()"><a href="/logout" th:href="@{#}" onclick="$('#logoutForm').submit();">Wyloguj</a>
+            </li>
+            <form style="visibility: hidden" id="logoutForm" method="post" action="#" th:action="@{/logout}"></form>
         </ul>
     </div>
 </nav>

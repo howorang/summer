@@ -26,11 +26,8 @@ public class HashTagController {
 
     @RequestMapping(value = "/{tagName}", method = RequestMethod.GET)
     public String browseHashTag(@PathVariable String tagName,
-                                @RequestParam(name = "page", required = false) Integer pageNumber,
+                                @RequestParam(name = "page", required = false, defaultValue = "0") Integer pageNumber,
                                 Model model) {
-        if (pageNumber == null) {
-            pageNumber = 0;
-        }
         Page<EntryEntity> page = entryService.getEntriesWithHashTag(tagName, pageNumber);
         model.addAttribute("page", page);
         model.addAttribute("entries", page.getContent());

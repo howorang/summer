@@ -41,7 +41,7 @@ public class AuthController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerFormFiller(@ModelAttribute("newUser") UserRegistrationDto newUser) {
         userService.registerNewUser(newUser);
-        return "register";
+        return "user_registered";
     }
 
 }

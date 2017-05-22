@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import pl.summer.consts.Privilege;
 import pl.summer.model.entity.RoleEntity;
 import pl.summer.model.entity.UserEntity;
+import pl.summer.model.entity.UserInfoEntity;
 import pl.summer.model.repository.RoleRepository;
 import pl.summer.model.repository.UserRepository;
 
@@ -55,7 +56,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .build();
 
         RoleEntity adminRole = RoleEntity.builder()
-                .roleName("ROLE_USER")
+                .roleName("ROLE_ADMIN")
                 .privilege(Privilege.ADD_ENTRY)
                 .privilege(Privilege.DELETE_OWN_POSTS)
                 .privilege(Privilege.DELETE_ALL_POSTS)
@@ -69,12 +70,27 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .username("admin")
                 .password(passwordEncoder.encode("admin"))
                 .entries(Collections.emptyList())
-                .userDetails(null)
+                .userInfo(UserInfoEntity.builder()
+                        .description("Admin account")
+                        .avatar(new byte[]{})
+                        .build())
                 .role(userRole)
                 .role(adminRole)
                 .build();
 
+        UserEntity solBadguy = UserEntity.builder()
+                .username("sol_badguy")
+                .password(passwordEncoder.encode("gunflame"))
+                .entries(Collections.emptyList())
+                .userInfo(UserInfoEntity.builder()
+                        .description("normal account")
+                        .avatar(new byte[]{})
+                        .build())
+                .role(userRole)
+                .build();
+
         userRepository.save(admin);
+        userRepository.save(solBadguy);
 
         isAlreadySetup = true;
     }

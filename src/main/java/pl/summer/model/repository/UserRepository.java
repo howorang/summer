@@ -1,6 +1,6 @@
 package pl.summer.model.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.summer.model.entity.UserEntity;
 
@@ -9,6 +9,6 @@ import pl.summer.model.entity.UserEntity;
  */
 
 @Repository
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUsername(String username);
 }

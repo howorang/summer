@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Summer Platform</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/css/find.css}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+            th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/header :: header">...</div>
+
+    <img th:src="@{'data:image/jpeg;base64,'+${encodedAvatar}}" alt="..." class="img-thumbnail"/>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" th:text="${user.username}">Opis</div>
+        <div class="panel-body" th:text="${user.userInfo.description}">
+        </div>
+    </div>
+
+    <form method="post" th:action="@{__${user.username}__/fileUpload}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*"/>
+        <input type="submit"/>
+    </form>
+</div>
+</body>
+</html>

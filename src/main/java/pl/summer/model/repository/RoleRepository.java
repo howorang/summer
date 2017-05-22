@@ -10,4 +10,7 @@ import pl.summer.model.entity.RoleEntity;
 
 @Repository
 public interface RoleRepository extends CrudRepository<RoleEntity, Long> {
+
+    public RoleEntity findByRoleName(String roleName);
+
 }
