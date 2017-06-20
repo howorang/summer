@@ -7,5 +7,6 @@ public enum Privilege {
     ADD_ENTRY,
     DELETE_OWN_POSTS,
     DELETE_ALL_POSTS,
-    ADMIN_PANEL
+    ADMIN_PANEL,
+    COMMENT
 }

@@ -57,6 +57,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .roleName("ROLE_USER")
                 .privilege(Privilege.ADD_ENTRY)
                 .privilege(Privilege.DELETE_OWN_POSTS)
+                .privilege(Privilege.COMMENT)
                 .build();
 
         RoleEntity adminRole = RoleEntity.builder()
@@ -65,6 +66,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .privilege(Privilege.DELETE_OWN_POSTS)
                 .privilege(Privilege.DELETE_ALL_POSTS)
                 .privilege(Privilege.ADMIN_PANEL)
+                .privilege(Privilege.COMMENT)
                 .build();
 
         roleRepository.save(userRole);
@@ -76,7 +78,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .entries(Collections.emptyList())
                 .userInfo(UserInfoEntity.builder()
                         .description("Admin account")
-                        .avatar(new byte[]{})
+                        .avatar("")
                         .build())
                 .role(userRole)
                 .role(adminRole)
@@ -88,7 +90,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .entries(Collections.emptyList())
                 .userInfo(UserInfoEntity.builder()
                         .description("normal account")
-                        .avatar(new byte[]{})
+                        .avatar("")
                         .build())
                 .role(userRole)
                 .build();

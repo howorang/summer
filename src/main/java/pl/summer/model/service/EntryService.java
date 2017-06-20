@@ -66,4 +66,8 @@ public class EntryService {
         PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
         return entryRepository.findAll(queryExp, pageRequest);
     }
+
+    public EntryEntity getEntryById(long id) {
+        return entryRepository.findById(id);
+    }
 }

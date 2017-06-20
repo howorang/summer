@@ -48,7 +48,7 @@ public class UserService {
                 .userInfo(
                         UserInfoEntity.builder()
                         .description("")
-                        .avatar(new byte[]{})
+                        .avatar("")
                                 .build())
 
                 .build();

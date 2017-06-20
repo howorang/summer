@@ -38,7 +38,7 @@ public class EntryController {
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String addEntryPost(@ModelAttribute(name = "entry") EntryDto entry) {
         entryService.addEntry(entry);
-        return "redirect:/entry/add";
+        return "redirect:/";
     }
 
     @RequestMapping(path = "/remove", method = RequestMethod.GET)
@@ -71,6 +71,14 @@ public class EntryController {
                                 Model model) {
         String query = searchDto.getQueryString();
         return "redirect:/entry/search?query=" + query;
+    }
+
+    @RequestMapping(path = "/details", method = RequestMethod.GET)
+    public String viewEntry(@RequestParam(name = "entryId") Long entryId,
+                            Model model) {
+        EntryEntity entry = entryService.getEntryById(entryId);
+        model.addAttribute("entry", entry);
+        return "entry/details";
     }
 
 }

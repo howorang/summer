@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/css/find.css}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+            th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+
+</head>
+<body>
+
+<div th:fragment="add_comment_panel">
+    <form class="form-inline" method="post"  th:action="@{/comment/add(entryId=${entryId})}">
+        <div class="form-group">
+            <textarea cols="60" rows="2" th:field="${newComment.content}"></textarea>
+        </div>
+        <button class="btn btn-default" value="Add" type="submit">Add</button>
+    </form>
+</div>
+
+</body>
+</html>

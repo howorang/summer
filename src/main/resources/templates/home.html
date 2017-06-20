@@ -12,28 +12,17 @@
             th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
     <script src="https://code.jquery.com/jquery-3.2.0.min.js"
             th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+
+    <link rel="stylesheet" href="../static/css/login-page.css"
+          th:href="@{/css/comments.css}"/>
+
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/header :: header">...</div>
 
     <div th:each="entry : ${entries}" class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title pull-left" th:inline="text">
-                    <b th:text="${entry.author.username}"></b>
-                    [[${entry.timeStamp}]]
-                </div>
-                <div class="panel-title pull-right">
-                    <a th:href="@{/entry/remove(entry_id=${entry.id})}" sec:authorize="hasAuthority('DELETE_ALL_POSTS')"
-                            class="text-center btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="panel-body" th:text="${entry.content}">
-                Panel content
-            </div>
+        <div th:replace="fragments/entry :: entry_fragment (entry=${entry})">...</div>
     </div>
 
     <div th:if="${not #lists.isEmpty(entries)}">
@@ -66,4 +55,15 @@
     </div>
 </div>
 </body>
+<script>
+    function reply(entryId) {
+        var url = '/comment/load_panel';
+
+        if ($('#searchSurname').val() != '') {
+            url = url + '?entryId=' + entryId;
+        }
+        $("#add_comment_button" + entryId).remove();
+        $("#add_comment_holder").load(url);
+    }
+</script>
 </html>

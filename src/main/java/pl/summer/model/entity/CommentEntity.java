@@ -7,22 +7,26 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 /**
- * Created by Piotr Borczyk on 10.04.2017.
+ * Created by Piotr Borczyk on 18.06.2017.
  */
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class UserInfoEntity extends BaseEntity {
+@NoArgsConstructor
+public class CommentEntity extends BaseEntity {
 
-    private String description;
+    @ManyToOne
+    private UserEntity author;
 
-    @Lob
-    private String avatar;
+    private String content;
+
+    @ManyToOne
+    private EntryEntity entry;
+
 }

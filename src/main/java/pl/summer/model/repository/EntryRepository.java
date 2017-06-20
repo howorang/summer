@@ -12,4 +12,7 @@ import pl.summer.model.entity.EntryEntity;
 
 @Repository
 public interface EntryRepository extends JpaRepository<EntryEntity, Long>, QueryDslPredicateExecutor<EntryEntity> {
+
+    EntryEntity findById(long id);
+
 }

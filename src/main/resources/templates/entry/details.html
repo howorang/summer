@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/css/find.css}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"
+            th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+
+    <link rel="stylesheet" href="../static/css/login-page.css"
+          th:href="@{/css/comments.css}"/>
+
+</head>
+
+<body>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title pull-left" th:inline="text">
+            <img class="d-flex align-self-center mr-3" width="50px"
+                 src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" alt="Generic placeholder image"/>
+            <b th:text="${entry.author.username}"></b>
+            [[${entry.timeStamp}]]
+        </div>
+        <div class="panel-title pull-right">
+            <a th:href="@{/entry/remove(entry_id=${entry.id})}" sec:authorize="hasAuthority('DELETE_ALL_POSTS')"
+               class="text-center btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body" th:text="${entry.content}">
+        Panel content
+    </div>
+</div>
+
+<div th:each="comment : ${entry.comments}">
+    <div th:replace="fragments/comment :: comment (comment=${comment})">...</div>
+</div>
+
+<button class="btn btn-default" th:id="add_comment_button + ${entry.id}" name="addCommentButton"
+        th:onclick="'reply(\'' + ${entry.id} + '\');'" type="button"
+>Add comment
+</button>
+<div id="add_comment_holder">
+
+</div>
+
+</body>
+</html>

@@ -21,7 +21,6 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    private static final int DEFAULT_PAGE_SIZE = 1;
     @Autowired
     private EntryService entryService;
 

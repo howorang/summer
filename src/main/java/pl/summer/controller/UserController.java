@@ -30,7 +30,7 @@ public class UserController {
                               Model model) {
         UserEntity user = userService.getUserByUsername(userName);
         model.addAttribute("user", user);
-        model.addAttribute("encodedAvatar", Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar()));
+        model.addAttribute("encodedAvatar", user.getUserInfo().getAvatar());
         return "user/profile";
     }
 
@@ -41,10 +41,10 @@ public class UserController {
         try {
             byte[] data = file.getBytes();
             UserEntity user = userService.getUserByUsername(userName);
-            user.getUserInfo().setAvatar(data);
+            user.getUserInfo().setAvatar(Base64.getEncoder().encodeToString(data));
             userService.save(user);
             model.addAttribute("user", user);
-            model.addAttribute("encodedAvatar", Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar()));
+            model.addAttribute("encodedAvatar", user.getUserInfo().getAvatar());
         } catch (IOException e) {
             e.printStackTrace();
         }
