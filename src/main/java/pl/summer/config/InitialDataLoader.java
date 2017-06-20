@@ -49,6 +49,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
             return;
         }
 
+       if(userRepository.findAll().size() != 0) {
+           return;
+       }
+
         RoleEntity userRole = RoleEntity.builder()
                 .roleName("ROLE_USER")
                 .privilege(Privilege.ADD_ENTRY)
