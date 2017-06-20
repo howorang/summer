@@ -51,7 +51,7 @@ public class EntryService {
 
     public Page<EntryEntity> getEntries(int pageNumber) {
         PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
-        return entryRepository.findAll(pageRequest);
+        return entryRepository.findAllByOrderByTimeStampDesc(pageRequest);
     }
 
     public Page<EntryEntity> getEntriesWithHashTag(String hashTag, int pageNumber) {
@@ -89,4 +89,13 @@ public class EntryService {
         userRepository.save(currentUser);
         return upvotes;
     }
+
+    public Page<EntryEntity> getHotEntries(int pageNumber) {
+        PageRequest pageRequest = new PageRequest(pageNumber, DEFAULT_PAGE_SIZE);
+        QEntryEntity qEntryEntity = QEntryEntity.entryEntity;
+
+        return entryRepository.findAllByOrderByUpvotesDesc(pageRequest);
+    }
+
+
 }

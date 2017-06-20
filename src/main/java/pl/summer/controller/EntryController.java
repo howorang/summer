@@ -88,4 +88,16 @@ public class EntryController {
         return "fragments/utils :: toString(object=" + upvotes +")";
     }
 
+    @RequestMapping(path = "/hot", method = RequestMethod.GET)
+    public String home(Model model, @RequestParam(name = "page", required = false) Integer pageNumber) {
+        if (pageNumber == null) {
+            pageNumber = 0;
+        }
+
+        Page<EntryEntity> entries = entryService.getHotEntries(pageNumber);
+        model.addAttribute("entries", entries.getContent());
+        model.addAttribute("page", entries);
+        return "home";
+    }
+
 }

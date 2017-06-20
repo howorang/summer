@@ -22,13 +22,24 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Summer</a>
         </div>
+
         <ul class="nav navbar-nav">
-            <li sec:authorize="hasAuthority('ADD_ENTRY')"><a th:href="@{/entry/add}">Dodaj wpis</a></li>
+            <li><a href="/">Najnowsze</a></li>
         </ul>
+
+        <ul class="nav navbar-nav">
+            <li><a th:href="@{/entry/hot}">Gorące</a></li>
+        </ul>
+
         <ul class="nav navbar-nav">
             <li><a th:href="@{/entry/search}">Szukaj</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+
+            <ul class="nav navbar-nav">
+                <li sec:authorize="hasAuthority('ADD_ENTRY')"><a th:href="@{/entry/add}">Dodaj wpis</a></li>
+            </ul>
+
             <li><a sec:authorize="isAuthenticated()"
                    th:href="@{/user/__${#authentication.getPrincipal().getUsername()}__}">Profil</a></li>
 
