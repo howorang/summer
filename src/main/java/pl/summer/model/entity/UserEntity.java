@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 import lombok.Singular;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Piotr Borczyk on 10.04.2017.
@@ -38,4 +40,9 @@ public class UserEntity extends BaseEntity {
     @Singular
     @ManyToMany
     private List<RoleEntity> roles;
+
+    @Singular
+    @ElementCollection
+    private Set<Long> upvotedEntries;
+
 }

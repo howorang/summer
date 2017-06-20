@@ -84,10 +84,7 @@ public class EntryController {
 
     @RequestMapping(path = "/plus", method = RequestMethod.GET,  produces = MediaType.TEXT_HTML_VALUE)
     public String plus(@RequestParam(name = "entryId") Long entryId) {
-        EntryEntity entry = entryService.getEntryById(entryId);
-        int upvotes = entry.getUpvotes() + 1;
-        entry.setUpvotes(upvotes);
-        entryService.save(entry);
+        int upvotes = entryService.upvoteEntry(entryId);
         return "fragments/utils :: toString(object=" + upvotes +")";
     }
 

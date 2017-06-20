@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import pl.summer.model.dto.EntryDto;
 import pl.summer.model.entity.EntryEntity;
 import pl.summer.model.entity.QEntryEntity;
+import pl.summer.model.entity.UserEntity;
 import pl.summer.model.entry.HashTagParser;
 import pl.summer.model.repository.EntryRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import pl.summer.model.repository.UserRepository;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -28,6 +30,9 @@ public class EntryService {
     private static final int DEFAULT_PAGE_SIZE = 1;
     @Autowired
     private EntryRepository entryRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private UserService userService;
@@ -71,7 +76,17 @@ public class EntryService {
         return entryRepository.findById(id);
     }
 
-    public void save(EntryEntity entryEntity) {
-        entryRepository.save(entryEntity);
+    public int upvoteEntry(Long entryId) {
+        UserEntity currentUser = userService.getCurrentlyLoggedUser();
+        if (currentUser.getUpvotedEntries().contains(entryId)) {
+            return entryRepository.findById(entryId).getUpvotes();
+        }
+        currentUser.getUpvotedEntries().add(entryId);
+        EntryEntity entry = entryRepository.findById(entryId);
+        int upvotes = entry.getUpvotes() + 1;
+        entry.setUpvotes(upvotes);
+        entryRepository.save(entry);
+        userRepository.save(currentUser);
+        return upvotes;
     }
 }
