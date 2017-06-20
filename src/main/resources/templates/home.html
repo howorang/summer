@@ -63,7 +63,7 @@
             url = url + '?entryId=' + entryId;
         }
         $("#add_comment_button" + entryId).remove();
-        $("#add_comment_holder").load(url);
+        $("#add_comment_holder" + entryId).load(url);
     }
 
     function plus(entryId) {
