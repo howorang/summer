@@ -3,6 +3,7 @@ package pl.summer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -79,6 +80,15 @@ public class EntryController {
         EntryEntity entry = entryService.getEntryById(entryId);
         model.addAttribute("entry", entry);
         return "entry/details";
+    }
+
+    @RequestMapping(path = "/plus", method = RequestMethod.GET,  produces = MediaType.TEXT_HTML_VALUE)
+    public String plus(@RequestParam(name = "entryId") Long entryId) {
+        EntryEntity entry = entryService.getEntryById(entryId);
+        int upvotes = entry.getUpvotes() + 1;
+        entry.setUpvotes(upvotes);
+        entryService.save(entry);
+        return "fragments/utils :: toString(object=" + upvotes +")";
     }
 
 }

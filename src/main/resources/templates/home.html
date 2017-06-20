@@ -65,5 +65,14 @@
         $("#add_comment_button" + entryId).remove();
         $("#add_comment_holder").load(url);
     }
+
+    function plus(entryId) {
+        var url = '/entry/plus';
+
+        if ($('#searchSurname').val() != '') {
+            url = url + '?entryId=' + entryId;
+        }
+        $("#upvote_holder" + entryId).load(url);
+    }
 </script>
 </html>

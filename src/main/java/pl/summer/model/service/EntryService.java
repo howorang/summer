@@ -70,4 +70,8 @@ public class EntryService {
     public EntryEntity getEntryById(long id) {
         return entryRepository.findById(id);
     }
+
+    public void save(EntryEntity entryEntity) {
+        entryRepository.save(entryEntity);
+    }
 }

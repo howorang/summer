@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -58,6 +59,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .privilege(Privilege.ADD_ENTRY)
                 .privilege(Privilege.DELETE_OWN_POSTS)
                 .privilege(Privilege.COMMENT)
+                .privilege(Privilege.RANK)
                 .build();
 
         RoleEntity adminRole = RoleEntity.builder()
@@ -67,6 +69,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
                 .privilege(Privilege.DELETE_ALL_POSTS)
                 .privilege(Privilege.ADMIN_PANEL)
                 .privilege(Privilege.COMMENT)
+                .privilege(Privilege.RANK)
                 .build();
 
         roleRepository.save(userRole);
