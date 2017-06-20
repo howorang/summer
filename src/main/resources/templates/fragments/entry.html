@@ -20,7 +20,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title pull-left" th:inline="text">
-                <img class="d-flex align-self-center mr-3" width="50px" src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" alt="Generic placeholder image"/>
+                <img class="d-flex align-self-center mr-3" width="50px" th:src="@{'data:image/jpeg;base64,'+${entry.author.userInfo.avatar}}"/>
                 <b th:text="${entry.author.username}"></b>
                 [[${entry.timeStamp}]]
             </div>
