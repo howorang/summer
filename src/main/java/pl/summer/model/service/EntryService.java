@@ -10,6 +10,7 @@ import pl.summer.model.entity.EntryEntity;
 import pl.summer.model.entity.QEntryEntity;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.entry.HashTagParser;
+import pl.summer.model.entry.HashTagTransformer;
 import pl.summer.model.repository.EntryRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import pl.summer.model.repository.UserRepository;
@@ -39,6 +40,10 @@ public class EntryService {
 
     public void addEntry(EntryDto entryDto) {
         Set<String> hashTags = HashTagParser.getHashTags(entryDto.getContent());
+
+        HashTagTransformer hashTagTransformer = new HashTagTransformer();
+        entryDto = hashTagTransformer.transform(entryDto);
+
         EntryEntity entry = EntryEntity.builder()
                 .author(userService.getCurrentlyLoggedUser())
                 .content(entryDto.getContent())
