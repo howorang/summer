@@ -34,7 +34,6 @@ public class CommentService {
         EntryEntity entry = entryRepository.findById(entryId);
         entry.getComments().add(comment);
         comment.setEntry(entry);
-        entryRepository.save(entry);
         commentRepository.save(comment);
     }
 }

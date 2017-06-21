@@ -38,7 +38,7 @@ public class EntryEntity extends BaseEntity {
 
     private Date timeStamp;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entry")
     private List<CommentEntity> comments;
 
 }
