@@ -13,6 +13,8 @@
     <script src="https://code.jquery.com/jquery-3.2.0.min.js"
             th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
 
+    <script th:src="@{/css/comments.css}"/>
+
 
 </head>
 <body>
@@ -47,16 +49,16 @@
         </div>
     </div>
 
-    <div th:each="comment : ${entry.comments}">
+    <div th:each="comment : ${entry.comments}" class="comments">
         <div th:replace="fragments/comment :: comment (comment=${comment})">...</div>
     </div>
 
     <button sec:authorize="hasAuthority('COMMENT')"
-            class="btn btn-default" th:id="add_comment_button + ${entry.id}" name="addCommentButton"
+            class="btn btn-default add_comment_btn" th:id="add_comment_button + ${entry.id}" name="addCommentButton"
             th:onclick="'reply(\'' + ${entry.id} + '\');'" type="button"
     >Add comment
     </button>
-    <div th:id="'add_comment_holder' + ${entry.id}">
+    <div class="comment_box" th:id="'add_comment_holder' + ${entry.id}">
 
     </div>
 </div>

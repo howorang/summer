@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+
+    <script th:src="@{/css/comments.css}"/>
 </head>
 <body>
-<div class="media" th:fragment="comment(comment)">
+<div class="media comment" th:fragment="comment(comment)">
     <img class="d-flex align-self-center mr-3 pull-left" width="50px" th:src="@{'data:image/jpeg;base64,'+${comment.author.userInfo.avatar}}"/>
     <div class="media-body">
         <b class="mt-0" th:text="${comment.author.username}">Author</b>
