@@ -11,6 +11,7 @@ import pl.summer.model.entity.QEntryEntity;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.entry.HashTagParser;
 import pl.summer.model.entry.HashTagTransformer;
+import pl.summer.model.entry.UserReferenceTransformer;
 import pl.summer.model.repository.EntryRepository;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import pl.summer.model.repository.UserRepository;
@@ -43,6 +44,9 @@ public class EntryService {
 
         HashTagTransformer hashTagTransformer = new HashTagTransformer();
         entryDto = hashTagTransformer.transform(entryDto);
+
+        UserReferenceTransformer userReferenceTransformer = new UserReferenceTransformer();
+        entryDto = userReferenceTransformer.transform(entryDto);
 
         EntryEntity entry = EntryEntity.builder()
                 .author(userService.getCurrentlyLoggedUser())
