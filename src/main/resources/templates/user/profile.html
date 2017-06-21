@@ -24,8 +24,7 @@
         <div class="panel-body" th:text="${user.userInfo.description}">
         </div>
     </div>
-
-    <form method="post" th:action="@{__${user.username}__/fileUpload}" enctype="multipart/form-data">
+    <form th:if="${#authorization.authentication.name.equals(user.username)}" method="post" th:action="@{__${user.username}__/fileUpload}" enctype="multipart/form-data">
         <input type="file" name="file" accept="image/*"/>
         <input type="submit"/>
     </form>
