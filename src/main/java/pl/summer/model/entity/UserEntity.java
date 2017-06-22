@@ -10,6 +10,7 @@ import lombok.Singular;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,6 +33,7 @@ public class UserEntity extends BaseEntity {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_INFO_ID")
     private UserInfoEntity userInfo;
 
     @OneToMany(mappedBy = "author")
