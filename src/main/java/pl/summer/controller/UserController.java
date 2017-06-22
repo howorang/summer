@@ -3,14 +3,19 @@ package pl.summer.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import pl.summer.model.dto.DescriptionDto;
+import pl.summer.model.dto.SearchDto;
 import pl.summer.model.entity.UserEntity;
 import pl.summer.model.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -24,6 +29,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @ModelAttribute(name = "newDescription")
+    public SearchDto searchDto(){
+        SearchDto searchDto = new SearchDto();
+        searchDto.setQueryString("");
+        return searchDto;
+    }
 
     @RequestMapping(value = "/{userName}", method = RequestMethod.GET)
     public String viewProfile(@PathVariable String userName,
@@ -50,5 +62,19 @@ public class UserController {
         }
 
         return "user/profile";
+    }
+
+    @RequestMapping(value = "/{userName}/editDescription", method = RequestMethod.GET)
+    public String editDescription(@PathVariable String userName) {
+        return "fragments/edit_description_form :: edit_description_form(username=" + userName + ")";
+    }
+
+    @RequestMapping(value = "/{userName}/editDescription", method = RequestMethod.POST)
+    public String editDescriptionPost(@PathVariable String userName,
+                                      @RequestParam String newDescription) {
+        UserEntity user = userService.getUserByUsername(userName);
+        user.getUserInfo().setDescription(newDescription);
+        userService.save(user);
+        return "redirect: ";
     }
 }

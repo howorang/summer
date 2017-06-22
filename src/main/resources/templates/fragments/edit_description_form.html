@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<form th:fragment="edit_description_form(username)" method="post" th:action="@{'/user/' + ${username} + '/editDescription'}">
+    <textarea name="newDescription"></textarea>
+    <button type="submit">Zapisz</button>
+</form>
+</body>
+</html>

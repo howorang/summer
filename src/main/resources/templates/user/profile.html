@@ -20,14 +20,42 @@
     <img th:src="@{'data:image/jpeg;base64,'+${encodedAvatar}}" alt="..." class="img-thumbnail"/>
 
     <div class="panel panel-default">
-        <div class="panel-heading" th:text="${user.username}">Opis</div>
-        <div class="panel-body" th:text="${user.userInfo.description}">
+        <div class="panel-heading">
+            <div class="panel-title pull-left" th:text="${user.username}">
+
+            </div>
+            <div class="panel-title pull-right">
+                <button th:if="${#authorization.authentication.name.equals(user.username)}"
+                        class="btn btn-default add_comment_btn glyphicon glyphicon-pencil" name="addCommentButton"
+                        th:onclick="'edit_description(\'' + ${user.username} + '\');'" type="button"
+                >
+                </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div id="description" class="panel-body">
+            <div id="description_holder" th:text="${user.userInfo.description}">
+
+            </div>
         </div>
     </div>
-    <form th:if="${#authorization.authentication.name.equals(user.username)}" method="post" th:action="@{__${user.username}__/fileUpload}" enctype="multipart/form-data">
+    <form th:if="${#authorization.authentication.name.equals(user.username)}" method="post"
+          th:action="@{__${user.username}__/fileUpload}" enctype="multipart/form-data">
         <input type="file" name="file" accept="image/*"/>
         <input type="submit"/>
     </form>
 </div>
 </body>
+<script>
+    function edit_description(username) {
+        var url = '/user/';
+
+        if ($('#searchSurname').val() != '') {
+            url = url + username + '/editDescription';
+        }
+        $("#description_holder").remove();
+        $("#description").load(url);
+    }
+
+</script>
 </html>
