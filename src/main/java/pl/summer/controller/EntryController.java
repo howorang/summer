@@ -78,8 +78,8 @@ public class EntryController {
     public String viewEntry(@RequestParam(name = "entryId") Long entryId,
                             Model model) {
         EntryEntity entry = entryService.getEntryById(entryId);
-        model.addAttribute("entry", entry);
-        return "entry/details";
+        model.addAttribute("entries", Collections.singletonList(entry));
+        return "home";
     }
 
     @RequestMapping(path = "/plus", method = RequestMethod.GET,  produces = MediaType.TEXT_HTML_VALUE)

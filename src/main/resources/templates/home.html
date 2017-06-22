@@ -25,7 +25,7 @@
         <div th:replace="fragments/entry :: entry_fragment (entry=${entry})">...</div>
     </div>
 
-    <div th:if="${not #lists.isEmpty(entries)}">
+    <div th:if="${not #lists.isEmpty(entries) and pages != null}">
         <div class="table-pagination">
             <ul class="pagination">
                 <li th:class="${page.number eq 0} ? 'disabled' : ''">
